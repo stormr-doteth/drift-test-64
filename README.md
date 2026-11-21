@@ -1,9 +1,9 @@
-# N64 Pad Tester
+# Drift Test 64
 
-A Nintendo 64 controller tester that runs on real hardware from a flashcart.
-Check every button, measure how worn the analog stick is, and save a
-printable one-page report to the SD card — handy for repairs and for
-listing controllers for sale.
+**N64 controller tester and stick drift test** that runs on real hardware
+from a flashcart. Check every button, measure how worn the analog stick is
+(drift, loose stick, weak range), and save a printable one-page report to the
+SD card — handy for repairs and for listing controllers for sale.
 
 ![The tester running](docs/screenshot.png)
 
@@ -41,7 +41,7 @@ number and notes.
 
 ## How to use
 
-1. Download `n64-pad-tester.z64` from the
+1. Download `drift-test-64.z64` from the
    [Releases](../../releases) page.
 2. Copy it to your flashcart's SD card and start it from the menu.
 3. Test the controller:
@@ -53,7 +53,7 @@ number and notes.
 
    | Menu item | What it does |
    |---|---|
-   | SAVE REPORT TO SD | writes `n64padtester/report_001.html` (the number goes up each time) |
+   | SAVE REPORT TO SD | writes `drifttest64/report_001.html` (the number goes up each time) |
    | VIEW REPORT | shows the verdict on the TV — good for photos |
    | SCREEN SIZE | left/right on the D-pad to shrink the picture for CRTs |
    | RESET THIS PORT | clears the results to test the next controller |
@@ -90,8 +90,8 @@ You need the libdragon toolchain and a recent libdragon (`trunk` branch,
 commit `e356bf3` or newer) installed, with `N64_INST` set. On Windows, use WSL.
 
 ```sh
-make            # n64-pad-tester.z64
-make DEBUG=1    # n64-pad-tester-debug.z64: on-screen boot steps + frame counter
+make            # drift-test-64.z64
+make DEBUG=1    # drift-test-64-debug.z64: on-screen boot steps + frame counter
 ```
 
 `build.sh` is a small wrapper that sets `N64_INST` to `~/n64dev/tc/opt/libdragon`

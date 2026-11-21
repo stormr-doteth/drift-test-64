@@ -248,7 +248,7 @@ void report_write_html(FILE *f, const report_t *r)
 
     fputs("<div class=\"notes\"><b>Item / listing #:</b><div class=\"line\"></div>"
           "<b>Notes:</b><div class=\"line\"></div><div class=\"line\"></div></div>\n", f);
-    fputs("<footer>Generated on the console by N64 Pad Tester (homebrew, libdragon). "
+    fputs("<footer>Generated on the console by Drift Test 64 (homebrew, libdragon). "
           "Results describe the controller's condition at the time of testing.</footer>\n"
           "</div></body></html>\n", f);
 }

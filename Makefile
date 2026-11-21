@@ -1,10 +1,10 @@
 # make DEBUG=1  -> on-screen boot steps, frame counter, and libdragon's
 #                  development IPL3 (reports boot errors over USB).
 ifeq ($(DEBUG),1)
-ROM = n64-pad-tester-debug
+ROM = drift-test-64-debug
 BUILD_DIR = build-debug
 else
-ROM = n64-pad-tester
+ROM = drift-test-64
 BUILD_DIR = build
 endif
 SOURCE_DIR = src
@@ -23,7 +23,7 @@ all: $(ROM).z64
 
 $(BUILD_DIR)/$(ROM).elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/report.o
 
-$(ROM).z64: N64_ROM_TITLE = "N64 Pad Tester"
+$(ROM).z64: N64_ROM_TITLE = "Drift Test 64"
 $(ROM).z64: N64_ROM_RTC = true
 
 # PC-side sample report (for previewing the printable layout)
@@ -33,7 +33,7 @@ sample-report.html: tools/sample_report.c src/report.c src/report.h
 	./build/sample_report > $@
 
 clean:
-	rm -rf build build-debug n64-pad-tester.z64 n64-pad-tester-debug.z64
+	rm -rf build build-debug drift-test-64.z64 drift-test-64-debug.z64
 
 -include $(wildcard $(BUILD_DIR)/*.d)
 

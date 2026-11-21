@@ -1,5 +1,5 @@
 /*
- * N64 Controller Tester (libdragon)
+ * Drift Test 64: N64 controller tester (libdragon)
  *
  *  - Every button shows one of three states:
  *      grey   = not pressed yet (untested)
@@ -41,7 +41,8 @@
 #define SCY  (SY + SW / 2)
 
 #define MENU_HOLD_FRAMES 40
-#define SD_DIR  "sd:/n64padtester"
+#define SD_DIR  "sd:/drifttest64"
+#define OLD_SD_DIR "sd:/n64padtester"    /* v1.0.0 folder, for saved settings */
 
 /* ---------- buttons ---------- */
 typedef enum { HUE_GREY, HUE_BLUE, HUE_GREEN, HUE_RED, HUE_YELLOW } hue_t;
@@ -351,7 +352,7 @@ static int save_report(int port, const port_state_t *p)
     report_write_html(f, &r);
     bool err = ferror(f);
     fclose(f);
-    debugf("[pad-tester] saved %s (%s)\n", path, err ? "error" : "ok");
+    debugf("[drifttest64] saved %s (%s)\n", path, err ? "error" : "ok");
     return err ? -1 : n;
 }
 
@@ -377,6 +378,7 @@ static void load_settings(void)
 {
     if (!sd_ok) return;
     FILE *f = fopen(SD_DIR "/settings.txt", "r");
+    if (!f) f = fopen(OLD_SD_DIR "/settings.txt", "r");   /* from v1.0.0 */
     if (!f) return;
     int pct = 0;
     if (fscanf(f, "screen_size=%d", &pct) == 1)
@@ -622,7 +624,7 @@ static int boot_step = 0;
 static void stage(const char *what)
 {
     boot_step++;
-    debugf("[pad-tester] step %d: %s\n", boot_step, what);
+    debugf("[drifttest64] step %d: %s\n", boot_step, what);
 #ifdef DEBUG_BOOT
     static char lines[12][40];
     if (boot_step <= 12) snprintf(lines[boot_step - 1], 40, "%d. %s", boot_step, what);
@@ -630,7 +632,7 @@ static void stage(const char *what)
     if (d) {
         graphics_fill_screen(d, graphics_make_color(0, 0, 80, 255));
         graphics_set_color(graphics_make_color(255, 255, 255, 255), 0);
-        graphics_draw_text(d, 24, 24, "PAD TESTER - DEBUG BOOT");
+        graphics_draw_text(d, 24, 24, "DRIFT TEST 64 - DEBUG BOOT");
         for (int i = 0; i < boot_step && i < 12; i++)
             graphics_draw_text(d, 24, 44 + i * 12, lines[i]);
         display_show(d);
@@ -682,7 +684,7 @@ int main(void)
     vi_boot_guard();
     debug_init_isviewer();
     debug_init_usblog();
-    debugf("[pad-tester] main() reached\n");
+    debugf("[drifttest64] main() reached\n");
 
     sd_ok = debug_init_sdfs("sd:/", -1);
     load_settings();
@@ -826,7 +828,7 @@ int main(void)
 #ifdef DEBUG_BOOT
         text(d, 248, 214, C_WARN, "F%06lu", (unsigned long)frame);
 #endif
-        if (frame == 1 || frame % 600 == 0) debugf("[pad-tester] frame %lu\n", (unsigned long)frame);
+        if (frame == 1 || frame % 600 == 0) debugf("[drifttest64] frame %lu\n", (unsigned long)frame);
 
         present(&back);
     }
