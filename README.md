@@ -1,16 +1,24 @@
 # Drift Test 64
 
-**N64 controller tester and stick drift test** that runs on real hardware
-from a flashcart. Check every button, measure how worn the analog stick is
-(drift, loose stick, weak range), and save a printable one-page report to the
-SD card — handy for repairs and for listing controllers for sale.
+**N64 controller tester, button test and stick drift test** that runs on
+real hardware from a flashcart. Make sure every button fires and none are
+sticky or stuck, measure how worn the analog stick is (drift, loose stick,
+weak range), and save a printable one-page report to the SD card — handy for
+repairs and for listing controllers for sale.
 
 ![The tester running](docs/screenshot.png)
 
 ## Features
 
-- **Every button, three states:** grey = not tested yet, yellow = held right
-  now, green = works (has been pressed at least once).
+- **Full button test — all 14 buttons:** A, B, Z, START, L, R, the D-pad and
+  all four C buttons. Each shows grey = not tested yet, yellow = held right
+  now, green = works (has fired at least once).
+  - **Sticky or stuck buttons:** a button should turn yellow only while you
+    hold it. If it stays yellow after you let go, it's sticking.
+  - **Dead buttons:** a button that never turns green isn't registering.
+  - **Press counter:** each button counts its presses (on screen as
+    `LAST A x3`, and in the report), so a worn button that double-fires (one
+    press counts as two) or misses presses shows up.
 - **Analog stick health:**
   - live position and a trail of everywhere the stick has been
   - how far it reaches in each of the 8 directions, compared with a new stick
@@ -45,7 +53,8 @@ number and notes.
    [Releases](../../releases) page.
 2. Copy it to your flashcart's SD card and start it from the menu.
 3. Test the controller:
-   - press every button
+   - press every button a few times, watching that each one lights up only
+     while held and the counter goes up by one per press
    - spin the stick all the way around a few times
    - flick the stick in a few directions and let it snap back
    - leave the stick alone for a second to measure jitter
