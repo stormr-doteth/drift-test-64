@@ -1,0 +1,7 @@
+build/
+build-debug/
+*.z64
+*.rtc
+sample-report.html
+ares-preview.png
+/sample-report.png
